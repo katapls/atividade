@@ -8,7 +8,7 @@ import Login from './pages/login.js';
 import Cadastro from './pages/cadastro.js';
 
 const Stack = createStackNavigator();
-
+//a
 export default function App() {
   return (
     <NavigationContainer>
