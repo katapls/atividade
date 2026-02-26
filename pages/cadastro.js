@@ -4,12 +4,12 @@ import { View, Text, TouchableOpacity, TextInput, ImageBackground } from 'react-
 export default function Cadastro({ navigation }) {
   return (
     <ImageBackground 
-      source={{ uri: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400' }} 
+      source={{ uri: 'https://cdn.aptoide.com/imgs/5/4/8/548c0b0e293461210e95a98185cb9034_screen.jpg' }} 
       style={{ flex: 1 }}
     >
       <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-        <Text style={{ fontSize: 32, color: '#4a0012', textAlign: 'center' }}>EVERSWEET</Text>
-        <Text style={{ textAlign: 'center', marginBottom: 30 }}>Cadastro</Text>
+        <Text style={{ fontSize: 32, color: '#ffffff', textAlign: 'center' }}>EVERSWEET</Text>
+        <Text style={{ textAlign: 'center',color: '#fff', marginBottom: 30 }}>Cadastro</Text>
         
         <TextInput 
           placeholder="Nome" 
@@ -30,7 +30,7 @@ export default function Cadastro({ navigation }) {
         </TouchableOpacity>
         
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={{ textAlign: 'center', color: '#4a0012' }}>Voltar ao login</Text>
+          <Text style={{ textAlign: 'center', color: '#ffffff' }}>Voltar ao login</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
