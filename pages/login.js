@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 
 export default function Login({ navigation }) {
   return (
+
     <View style={{ flex: 1, backgroundColor: '#4a0012', paddingHorizontal: 20, paddingTop: 60 }}>
       <Text style={{ fontSize: 42, color: '#fff', textAlign: 'center', marginBottom: 10, fontWeight: 'bold' }}>
         EVERSWEET
@@ -36,6 +37,9 @@ export default function Login({ navigation }) {
           Ainda não tem conta? Cadastre-se
         </Text>
       </TouchableOpacity>
+      
+            
+      
     </View>
   );
 }
