@@ -1,45 +1,81 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import CustomText from '../components/CustomText';
 
-export default function Login({ navigation }) {
+export default function Login() {
+  const navigation = useNavigation();
+
   return (
-
     <View style={{ flex: 1, backgroundColor: '#4a0012', paddingHorizontal: 20, paddingTop: 60 }}>
-      <Text style={{ fontSize: 42, color: '#fff', textAlign: 'center', marginBottom: 10, fontWeight: 'bold' }}>
+
+      {/* Botão Drawer */}
+      <TouchableOpacity
+        onPress={() => navigation.openDrawer()}
+        style={{ position: 'absolute', top: 60, left: 20 }}
+      >
+        <CustomText style={{ fontSize: 28, color: '#fff' }}>
+          ☰
+        </CustomText>
+      </TouchableOpacity>
+
+      <CustomText style={{ fontSize: 42, color: '#fff', textAlign: 'center', marginBottom: 10 }}>
         EVERSWEET
-      </Text>
+      </CustomText>
       
-      <Text style={{ textAlign: 'center', color: '#fff', marginBottom: 40, fontSize: 16 }}>
+      <CustomText style={{ textAlign: 'center', color: '#fff', marginBottom: 40, fontSize: 16 }}>
         Faça login para continuar
-      </Text>
+      </CustomText>
       
-      <Text style={{ color: '#fff', marginBottom: 5 }}>Email</Text>
+      <CustomText style={{ color: '#fff', marginBottom: 5 }}>
+        Email
+      </CustomText>
+
       <TextInput 
         placeholder="Email" 
         placeholderTextColor="#ccc"
-        style={{ backgroundColor: 'rgba(255,255,255,0.9)', padding: 12, marginBottom: 15, borderRadius: 8, fontSize: 16 }} 
+        style={inputStyle}
       />
       
-      <Text style={{ color: '#fff', marginBottom: 5 }}>Senha</Text>
+      <CustomText style={{ color: '#fff', marginBottom: 5 }}>
+        Senha
+      </CustomText>
+
       <TextInput 
         placeholder="*********" 
         placeholderTextColor="#ccc"
-        style={{ backgroundColor: 'rgba(255,255,255,0.9)', padding: 12, marginBottom: 25, borderRadius: 8, fontSize: 16 }} 
-        secureTextEntry={true} 
+        style={[inputStyle, { marginBottom: 25 }]}
+        secureTextEntry
       />
       
-      <TouchableOpacity style={{ backgroundColor: '#fff', padding: 15, borderRadius: 8, marginBottom: 15, alignItems: 'center' }}>
-        <Text style={{ color: '#4a0012', fontSize: 18, fontWeight: 'bold' }}>ENTRAR</Text>
+      <TouchableOpacity style={buttonStyle}>
+        <CustomText style={{ color: '#4a0012', fontSize: 18 }}>
+          ENTRAR
+        </CustomText>
       </TouchableOpacity>
       
       <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 14 }}>
+        <CustomText style={{ textAlign: 'center', color: '#fff', fontSize: 14 }}>
           Ainda não tem conta? Cadastre-se
-        </Text>
+        </CustomText>
       </TouchableOpacity>
-      
-            
-      
+
     </View>
   );
 }
+
+const inputStyle = {
+  backgroundColor: 'rgba(255,255,255,0.9)',
+  padding: 12,
+  marginBottom: 15,
+  borderRadius: 8,
+  fontSize: 16
+};
+
+const buttonStyle = {
+  backgroundColor: '#fff',
+  padding: 15,
+  borderRadius: 8,
+  marginBottom: 15,
+  alignItems: 'center'
+};

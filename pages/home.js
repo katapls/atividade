@@ -1,77 +1,79 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import CustomText from '../components/CustomText';
 
-export default function Home({ navigation }) {
+export default function Home() {
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#fff5f5' }}>
+      
       <View style={{ padding: 20 }}>
-        
 
-        <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 30 }}>
-          <Text style={{ fontSize: 36, color: '#4a0012', fontWeight: 'bold' }}>EVERSWEET</Text>
+        {/* Botão do Drawer */}
+        <TouchableOpacity
+          onPress={() => navigation.openDrawer()}
+          style={{ marginBottom: 10 }}
+        >
+          <CustomText style={{ fontSize: 28, color: '#4a0012' }}>
+            ☰
+          </CustomText>
+        </TouchableOpacity>
+
+        <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 30 }}>
+          <CustomText style={{ fontSize: 36, color: '#4a0012' }}>
+            EVERSWEET
+          </CustomText>
         </View>
 
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           
           <TouchableOpacity 
-            style={{ 
-              width: '48%', 
-              height: 150, 
-              backgroundColor: '#4a0012', 
-              borderRadius: 10, 
-              marginBottom: 15,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
+            style={cardStyle('#4a0012')}
             onPress={() => navigation.navigate('Login')}
           >
-            <Text style={{ color: '#fff', fontSize: 20 }}>Login</Text>
+            <CustomText style={textStyle}>Login</CustomText>
           </TouchableOpacity>
 
           <TouchableOpacity 
-            style={{ 
-              width: '48%', 
-              height: 150, 
-              backgroundColor: '#6b1a2c', 
-              borderRadius: 10, 
-              marginBottom: 15,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
+            style={cardStyle('#6b1a2c')}
             onPress={() => navigation.navigate('Cadastro')}
           >
-            <Text style={{ color: '#fff', fontSize: 20 }}>Cadastro</Text>
+            <CustomText style={textStyle}>Cadastro</CustomText>
           </TouchableOpacity>
 
           <TouchableOpacity 
-            style={{ 
-              width: '48%', 
-              height: 150, 
-              backgroundColor: '#8f3b4c', 
-              borderRadius: 10, 
-              marginBottom: 15,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
+            style={cardStyle('#8f3b4c')}
+            onPress={() => navigation.navigate('Doces')}
           >
-            <Text style={{ color: '#fff', fontSize: 20 }}>Doces</Text>
+            <CustomText style={textStyle}>Doces</CustomText>
           </TouchableOpacity>
 
           <TouchableOpacity 
-            style={{ 
-              width: '48%', 
-              height: 150, 
-              backgroundColor: '#b35c6c', 
-              borderRadius: 10, 
-              marginBottom: 15,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
+            style={cardStyle('#b35c6c')}
+            onPress={() => navigation.navigate('Perfil')}
           >
-            <Text style={{ color: '#fff', fontSize: 20 }}>Perfil</Text>
+            <CustomText style={textStyle}>Perfil</CustomText>
           </TouchableOpacity>
+
         </View>
       </View>
     </ScrollView>
   );
 }
+
+const cardStyle = (color) => ({
+  width: '48%',
+  height: 150,
+  backgroundColor: color,
+  borderRadius: 10,
+  marginBottom: 15,
+  justifyContent: 'center',
+  alignItems: 'center'
+});
+
+const textStyle = {
+  color: '#fff',
+  fontSize: 20
+};
