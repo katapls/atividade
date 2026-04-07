@@ -44,5 +44,5 @@ const styles = StyleSheet.create({
   btnPrimary: { backgroundColor: '#f3b4c7', padding: 15, borderRadius: 10, alignItems: 'center' },
   btnText: { color: 'white', fontWeight: 'bold' },
   backButton: { position: 'absolute', top: 50, left: 20, backgroundColor: 'rgba(255,255,255,0.3)', width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' },
-  backText: { color: 'white', fontSize: 24, fontWeight: 'bold' }
+  backText: { color: 'white', fontSize: 24, fontWeight: 'bold', marginBottom: 10 }
 });
