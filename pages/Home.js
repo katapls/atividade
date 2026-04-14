@@ -36,10 +36,6 @@ export default function Home({ navigation }) {
               </MyView>
             </MyView>
           </Container>
-
-          <MyTouchableOpacity style={styles.cepBtn} onPress={() => navigation.navigate('Cep')}>
-            <MyText style={styles.cepBtnText}>🔍 Buscar CEP</MyText>
-          </MyTouchableOpacity>
         </MyView>
       </ScrollView>
     </BaseView>

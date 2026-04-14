@@ -1,12 +1,26 @@
 import React, { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ImageBackground, Image, StyleSheet } from "react-native";
 
 export default function Splash({ navigation }) {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('Home');
-    }, 3000);
-    return () => clearTimeout(timer);
+    const checkToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        await new Promise(resolve => setTimeout(resolve, 3000));
+
+        if (token) {
+          navigation.replace('Home');
+        } else {
+          navigation.replace('Login');
+        }
+      } catch (error) {
+        console.error("Erro no AsyncStorage:", error);
+        navigation.replace('Login');
+      }
+    };
+
+    checkToken();
   }, []);
 
   return (

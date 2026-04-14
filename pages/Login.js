@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Alert, StyleSheet, View as BaseView } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyText from '../componentes/Text';
 import MyTextInput from '../componentes/TextInput';
 import MyTouchableOpacity from '../componentes/TouchableOpacity';
@@ -7,15 +9,30 @@ import MyImageBackground from '../componentes/ImageBackground';
 import Container from '../componentes/Container';
 
 export default function Login({ navigation }) {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
-  function logar() {
-    if (user === "Gelo" && pass === "Azul") {
-      Alert.alert("Excelsior", "Usuário logado!");
-    } else {
-      Alert.alert("ERRO", "Usuário ou senha incorretos!");
-      navigation.navigate("Cep");
+  async function logar() {
+    if (email === "" || senha === "") {
+      Alert.alert("Erro", "Tem campos vazios");
+      return;
+    }
+    try {
+      const response = await axios.post("http://10.0.2.2:8000/api/Login", {
+        email: email,
+        senha: senha,
+      });
+      if (response.data.token) {
+        await AsyncStorage.setItem('token', response.data.token);
+        await AsyncStorage.setItem('user_id', String(response.data.user_id));
+        Alert.alert("Sucesso", "Login realizado!");
+        navigation.navigate("Home");
+      } else {
+        Alert.alert("Erro", "Token não recebido");
+      }
+    } catch (error) {
+      Alert.alert("Erro", error.response?.data?.data || "Erro ao fazer login");
+      console.error(error);
     }
   }
 
@@ -27,8 +44,18 @@ export default function Login({ navigation }) {
         </MyTouchableOpacity>
         <Container>
           <MyText style={styles.title}>Login</MyText>
-          <MyTextInput placeholder="Nome" value={user} onChangeText={setUser} />
-          <MyTextInput placeholder="Senha" secureTextEntry value={pass} onChangeText={setPass} />
+          <MyTextInput
+            placeholder="E-mail"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <MyTextInput
+            placeholder="Senha"
+            secureTextEntry
+            value={senha}
+            onChangeText={setSenha}
+          />
           <MyTouchableOpacity style={styles.btnPrimary} onPress={logar}>
             <MyText style={styles.btnText}>ENTRAR</MyText>
           </MyTouchableOpacity>
