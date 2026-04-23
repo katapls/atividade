@@ -1,4 +1,4 @@
-# CANDY API
+# React Candy-API
 
 # 📌 SOBRE
 Aplicativo mobile desenvolvido em React Native com o objetivo de consumir uma API REST para autenticação e gerenciamento de dados.
