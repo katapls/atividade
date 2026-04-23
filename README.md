@@ -50,13 +50,13 @@ A aplicação consome uma API REST desenvolvida em Laravel.
 
 👉 Endpoints utilizados:
 
-* [POST /Cadastro Usuario](http://127.0.0.1:8000/api/Cadastro_usuario)
-* [POST /Salva Doce](http://127.0.0.1:8000/api/Login)
-* [GET /Exibir Doce ](http://127.0.0.1:8000/api/exibe_doce/11?token={token})
-* [POST /Salva Doce](http://127.0.0.1:8000/api/salva_doce?token={token})
-* [PUT /Atualiza Doce](http://127.0.0.1:8000/api/atualiza_doce/11?token={token})
-* [DELETE /Deleta Doce](http://127.0.0.1:8000/api/deleta_doce/11?token={token})
-* [GET /Todos Doces](http://127.0.0.1:8000/api/todos_doces)
+* [POST /Cadastro Usuario][http://127.0.0.1:8000/api/Cadastro_usuario]
+* [POST /Salva Doce][http://127.0.0.1:8000/api/Login]
+* [GET /Exibir Doce ][http://127.0.0.1:8000/api/exibe_doce/11?token={token}]
+* [POST /Salva Doce][http://127.0.0.1:8000/api/salva_doce?token={token}]
+* [PUT /Atualiza Doce][http://127.0.0.1:8000/api/atualiza_doce/11?token={token}]
+* [DELETE /Deleta Doce][http://127.0.0.1:8000/api/deleta_doce/11?token={token}]
+* [GET /Todos Doces][http://127.0.0.1:8000/api/todos_doces]
 
 📬 Documentação completa da API:
 👉 [https://documenter.getpostman.com/view/51855037/2sBXirkURM]
