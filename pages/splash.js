@@ -9,13 +9,14 @@ export default function Splash({ navigation }) {
         const token = await AsyncStorage.getItem('token');
         await new Promise(resolve => setTimeout(resolve, 3000));
 
+
         if (token) {
+          console.log(token)
           navigation.replace('Home');
         } else {
           navigation.replace('Login');
         }
       } catch (error) {
-        console.error("Erro no AsyncStorage:", error);
         navigation.replace('Login');
       }
     };
