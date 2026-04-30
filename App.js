@@ -7,7 +7,7 @@ import Splash from './pages/splash';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
-import Cep from './pages/cep';
+import Doce from './pages/Doce';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
-        <Stack.Screen name="Cep" component={Cep} />
+        <Stack.Screen name="Doce" component={Doce} />
       </Stack.Navigator>
     </NavigationContainer>
   );

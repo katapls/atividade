@@ -43,6 +43,9 @@ export default function Home({ navigation }) {
           <MyTouchableOpacity style={[styles.navIconBtn, styles.registerBtn]} onPress={() => navigation.navigate('Cadastro')}>
             <MyText style={styles.navBtnText}>CADASTRO</MyText>
           </MyTouchableOpacity>
+          <MyTouchableOpacity style={[styles.navIconBtn, styles.registerBtn]} onPress={() => navigation.navigate('Doce')}>
+            <MyText style={styles.navBtnText}>DOCES</MyText>
+          </MyTouchableOpacity>
         </BaseView>
       </MyView>
 
