@@ -1,20 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View as BaseView, Modal, Pressable } from 'react-native';
+import React, { useState, useCallback, useEffect } from 'react';
+import { StyleSheet, FlatList, View as BaseView, Modal, Pressable, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import MyView from '../componentes/View';
 import MyText from '../componentes/Text';
 import MyTouchableOpacity from '../componentes/TouchableOpacity';
 import Container from '../componentes/Container';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({ navigation }) {
   const [doces, setDoces] = useState([]);
   const [doceSelecionado, setDoceSelecionado] = useState(null);
 
-  useEffect(() => {
+  const carregarDoces = () => {
     axios.get('http://10.0.2.2:8000/api/todos_doces')
       .then(res => setDoces(res.data.doces))
       .catch(err => console.error(err));
-  }, []);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      carregarDoces();
+    }, [])
+  );
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      carregarDoces();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleDelete = async () => {
+    Alert.alert(
+      'Confirmar exclusão',
+      `Tem certeza que deseja excluir o doce "${doceSelecionado?.Nome}"?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const token = await AsyncStorage.getItem('token');
+              const response = await axios.delete(
+                `http://10.0.2.2:8000/api/deleta_doce/${doceSelecionado.id}?token=${token}`
+              );
+              
+              if (response.status === 200) {
+                Alert.alert('Sucesso!', 'Doce excluído com sucesso.');
+                setDoceSelecionado(null);
+                carregarDoces();
+              }
+            } catch (error) {
+              console.error(error);
+              Alert.alert('Erro', 'Não foi possível excluir o doce. Tente novamente.');
+            }
+          }
+        }
+      ]
+    );
+  };
 
   const renderItem = ({ item }) => (
     <Pressable
@@ -120,16 +166,19 @@ export default function Home({ navigation }) {
                 <MyText style={styles.modalValor}>{doceSelecionado?.Descricao}</MyText>
               </BaseView>
             )}
+            
             <MyTouchableOpacity
-                style={styles.modalEditar}
-                onPress={() => {
-                  const doce = doceSelecionado;
-                  setDoceSelecionado(null);
-                  navigation.navigate('EditarDoce', { doce: doce });
-                }}
-              >
-                <MyText style={styles.modalEditarText}>Editar</MyText>
-              </MyTouchableOpacity>
+              style={styles.modalEditar}
+              onPress={() => {const doce = doceSelecionado; setDoceSelecionado(null); navigation.navigate('EditarDoce', { doce: doce, reload: true });}} >
+              <MyText style={styles.modalEditarText}>Editar</MyText>
+            </MyTouchableOpacity>
+            
+            <MyTouchableOpacity
+              style={styles.modalExcluir}
+              onPress={handleDelete}>
+              <MyText style={styles.modalExcluirText}>Excluir</MyText>
+            </MyTouchableOpacity>
+            
             <Pressable style={styles.modalFechar} onPress={() => setDoceSelecionado(null)}>
               <MyText style={styles.modalFecharText}>Fechar</MyText>
             </Pressable>
@@ -175,6 +224,8 @@ const styles = StyleSheet.create({
   modalValorDestaque:{ color: '#b60000', fontWeight: 'bold', fontSize: 16 },
   modalEditar:{ marginTop: 24, backgroundColor: '#a87d74', padding: 14, borderRadius: 12, alignItems: 'center' },
   modalEditarText:{ color: 'white', fontWeight: 'bold', fontSize: 15 },
+  modalExcluir:{ marginTop: 10, backgroundColor: '#dc3545', padding: 14, borderRadius: 12, alignItems: 'center' },
+  modalExcluirText:{ color: 'white', fontWeight: 'bold', fontSize: 15 },
   modalFechar:{ marginTop: 10, backgroundColor: '#fda7f2', padding: 14, borderRadius: 12, alignItems: 'center' },
   modalFecharText:{ color: 'white', fontWeight: 'bold', fontSize: 15 },
 });

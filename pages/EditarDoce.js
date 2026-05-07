@@ -21,13 +21,13 @@ export default function EditarDoce({ navigation, route }) {
   useEffect(() => {
     if (doce) {
       setForm({
-        Nome:         doce.Nome         || '',
-        Sabor:        doce.Sabor        || '',
-        Preco:        String(doce.Preco      || ''),
-        Quantidade:   String(doce.Quantidade || ''),
-        Alergicos:    doce.Alergicos    || '',
-        Ingredientes: doce.Ingredientes || '',
-        Descricao:    doce.Descricao    || '',
+        Nome:doce.Nome|| '',
+        Sabor:doce.Sabor|| '',
+        Preco:String(doce.Preco|| ''),
+        Quantidade:String(doce.Quantidade || ''),
+        Alergicos:doce.Alergicos|| '',
+        Ingredientes:doce.Ingredientes || '',
+        Descricao:doce.Descricao|| '',
       });
     }
   }, []);
@@ -49,15 +49,8 @@ export default function EditarDoce({ navigation, route }) {
         headers: { 'Content-Type': 'application/json' },
       });
       Alert.alert('Sucesso!', 'Doce atualizado com sucesso.', [
-        { text: 'OK', onPress: () => navigation.navigate('Home') },
+        { text: 'OK', onPress: () => navigation.navigate('Home', { reload: true }) },
       ]);
-    } catch (error) {
-      if (error.response?.status === 422) {
-        const msgs = Object.values(error.response.data.errors).flat().join('\n');
-        Alert.alert('Erro de validação', msgs);
-      } else {
-        Alert.alert('Erro', error.message || 'Sem resposta do servidor');
-      }
     } finally {
       setLoading(false);
     }
@@ -97,13 +90,13 @@ export default function EditarDoce({ navigation, route }) {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          <Field label="Nome"         field="Nome" />
-          <Field label="Sabor"        field="Sabor" />
-          <Field label="Preço (R$)"   field="Preco"        keyboard="numeric" />
-          <Field label="Quantidade"   field="Quantidade"   keyboard="numeric" />
-          <Field label="Alérgicos"    field="Alergicos" />
-          <Field label="Ingredientes" field="Ingredientes" />
-          <Field label="Descrição"    field="Descricao"    multiline />
+          <Field label="Nome"field="Nome" />
+          <Field label="Sabor"field="Sabor" />
+          <Field label="Preço (R$)"field="Preco"        keyboard="numeric" />
+          <Field label="Quantidade"field="Quantidade"   keyboard="numeric" />
+          <Field label="Alérgicos"field="Alergicos" />
+          <Field label="Ingredientes"field="Ingredientes" />
+          <Field label="Descrição"field="Descricao"    multiline />
 
           <MyTouchableOpacity
             style={[styles.btnSalvar, loading && { opacity: 0.6 }]}

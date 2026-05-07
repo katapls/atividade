@@ -46,7 +46,7 @@ export default function CadastrarDoce({ navigation }) {
       });
 
       Alert.alert('Sucesso!', 'Doce cadastrado com sucesso.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
+        { text: 'OK', onPress: () => navigation.navigate('Home', { reload: true }) },
       ]);
     } catch (error) {
       if (error.response?.status === 422) {
