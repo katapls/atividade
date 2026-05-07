@@ -120,6 +120,16 @@ export default function Home({ navigation }) {
                 <MyText style={styles.modalValor}>{doceSelecionado?.Descricao}</MyText>
               </BaseView>
             )}
+            <MyTouchableOpacity
+                style={styles.modalEditar}
+                onPress={() => {
+                  const doce = doceSelecionado;
+                  setDoceSelecionado(null);
+                  navigation.navigate('EditarDoce', { doce: doce });
+                }}
+              >
+                <MyText style={styles.modalEditarText}>Editar</MyText>
+              </MyTouchableOpacity>
             <Pressable style={styles.modalFechar} onPress={() => setDoceSelecionado(null)}>
               <MyText style={styles.modalFecharText}>Fechar</MyText>
             </Pressable>
@@ -163,6 +173,8 @@ const styles = StyleSheet.create({
   modalLabel:{ fontSize: 14, color: '#888' },
   modalValor:{ fontSize: 14, color: '#333', fontWeight: '500', maxWidth: '60%', textAlign: 'right' },
   modalValorDestaque:{ color: '#b60000', fontWeight: 'bold', fontSize: 16 },
-  modalFechar:{ marginTop: 24, backgroundColor: '#fda7f2', padding: 14, borderRadius: 12, alignItems: 'center' },
+  modalEditar:{ marginTop: 24, backgroundColor: '#a87d74', padding: 14, borderRadius: 12, alignItems: 'center' },
+  modalEditarText:{ color: 'white', fontWeight: 'bold', fontSize: 15 },
+  modalFechar:{ marginTop: 10, backgroundColor: '#fda7f2', padding: 14, borderRadius: 12, alignItems: 'center' },
   modalFecharText:{ color: 'white', fontWeight: 'bold', fontSize: 15 },
 });
