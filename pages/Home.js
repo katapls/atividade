@@ -43,17 +43,44 @@ export default function Home({ navigation }) {
           onPress: async () => {
             try {
               const token = await AsyncStorage.getItem('token');
+              
+              
+              console.log(' Produto sendo DELETADO:', {
+                id: doceSelecionado.id,
+                nome: doceSelecionado.Nome,
+                sabor: doceSelecionado.Sabor,
+                preco: doceSelecionado.Preco,
+                quantidade: doceSelecionado.Quantidade,
+                alergicos: doceSelecionado.Alergicos,
+                ingredientes: doceSelecionado.Ingredientes,
+                dataHora: new Date().toLocaleString('pt-BR')
+              });
+              
               const response = await axios.delete(
                 `http://10.0.2.2:8000/api/deleta_doce/${doceSelecionado.id}?token=${token}`
               );
               
               if (response.status === 200) {
+               
+                console.log(' Produto DELETADO com sucesso!', {
+                  id: doceSelecionado.id,
+                  nome: doceSelecionado.Nome,
+                  dataHora: new Date().toLocaleString('pt-BR')
+                });
+                
                 Alert.alert('Sucesso!', 'Doce excluído com sucesso.');
                 setDoceSelecionado(null);
                 carregarDoces();
               }
             } catch (error) {
-              console.error(error);
+              
+              console.error(' Erro ao DELETAR produto:', {
+                id: doceSelecionado?.id,
+                nome: doceSelecionado?.Nome,
+                erro: error.message,
+                status: error.response?.status,
+                dataHora: new Date().toLocaleString('pt-BR')
+              });
               Alert.alert('Erro', 'Não foi possível excluir o doce. Tente novamente.');
             }
           }

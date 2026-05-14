@@ -45,12 +45,51 @@ export default function EditarDoce({ navigation, route }) {
     try {
       setLoading(true);
       const token = await AsyncStorage.getItem('token');
+      
+      
+      console.log('📝 Produto sendo ALTERADO:', {
+        id: doce.id,
+        nomeAntigo: doce.Nome,
+        nomeNovo: form.Nome,
+        alteracoes: {
+          Nome: doce.Nome !== form.Nome ? `${doce.Nome} → ${form.Nome}` : 'sem alteração',
+          Sabor: doce.Sabor !== form.Sabor ? `${doce.Sabor} → ${form.Sabor}` : 'sem alteração',
+          Preco: String(doce.Preco) !== form.Preco ? `${doce.Preco} → ${form.Preco}` : 'sem alteração',
+          Quantidade: String(doce.Quantidade) !== form.Quantidade ? `${doce.Quantidade} → ${form.Quantidade}` : 'sem alteração',
+          Alergicos: doce.Alergicos !== form.Alergicos ? `${doce.Alergicos} → ${form.Alergicos}` : 'sem alteração',
+          Ingredientes: doce.Ingredientes !== form.Ingredientes ? `${doce.Ingredientes} → ${form.Ingredientes}` : 'sem alteração',
+          Descricao: doce.Descricao !== form.Descricao ? `${doce.Descricao} → ${form.Descricao}` : 'sem alteração',
+        },
+        dataHora: new Date().toLocaleString('pt-BR')
+      });
+      
       await axios.put(`${API_URL}/api/atualiza_doce/${doce.id}`, { ...form, token }, {
         headers: { 'Content-Type': 'application/json' },
       });
+      
+      
+      console.log('✅ Produto ALTERADO com sucesso!', {
+        id: doce.id,
+        nome: form.Nome,
+        sabor: form.Sabor,
+        preco: form.Preco,
+        quantidade: form.Quantidade,
+        dataHora: new Date().toLocaleString('pt-BR')
+      });
+      
       Alert.alert('Sucesso!', 'Doce atualizado com sucesso.', [
         { text: 'OK', onPress: () => navigation.navigate('Home', { reload: true }) },
       ]);
+    } catch (error) {
+      
+      console.error('❌ Erro ao ALTERAR produto:', {
+        id: doce.id,
+        nome: doce.Nome,
+        erro: error.message,
+        status: error.response?.status,
+        dataHora: new Date().toLocaleString('pt-BR')
+      });
+      Alert.alert('Erro', 'Não foi possível atualizar o doce. Tente novamente.');
     } finally {
       setLoading(false);
     }
